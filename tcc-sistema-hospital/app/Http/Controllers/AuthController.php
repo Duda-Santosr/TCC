@@ -29,10 +29,14 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
+        // Busca paciente pelo CPF
         $paciente = Paciente::where('cpf', $request->cpf)->first();
 
         if ($paciente && Hash::check($request->password, $paciente->password)) {
+            // Login via guard paciente
             Auth::guard('paciente')->login($paciente);
+
+            // Redireciona para o dashboard do paciente
             return redirect()->route('dashboard.paciente')
                              ->with('success', 'Login realizado com sucesso!');
         }
@@ -70,18 +74,14 @@ class AuthController extends Controller
         return redirect('/')->with('success', 'Você saiu com sucesso!');
     }
 
+    // Dashboard do funcionário
     public function dashboardFuncionario()
     {
-        // Verifica se o funcionário está logado
         if (!session('funcionario_logado')) {
             return redirect()->route('login.funcionario')->with('error', 'Acesso negado!');
-     }
+        }
 
-        // Pega todos os pacientes cadastrados
-        $pacientes = \App\Models\Paciente::all();
-
-        // Retorna a view com os dados
+        $pacientes = Paciente::all();
         return view('dashboard_funcionario', compact('pacientes'));
     }
-
 }

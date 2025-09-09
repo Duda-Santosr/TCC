@@ -42,13 +42,12 @@
       justify-content: center;
     }
 
-    /* Logo no topo */
     .logo-container {
       margin-bottom: 30px;
     }
 
     .logo-container img {
-      width: 90px;
+      width: 80px;
       height: auto;
     }
 
@@ -59,25 +58,25 @@
     }
 
     .form-control {
-        border-radius: 30px;
-        padding: 12px 20px;
-        font-size: 16px;
-        margin-bottom: 20px;
-        border: 2px solid rgba(255, 255, 255, 0.5);
-        background-color: rgba(255, 255, 255, 0.1); /* fundo claro translúcido */
-        color: white;
-        transition: border-color 0.3s, background-color 0.3s;
+      border-radius: 30px;
+      padding: 12px 20px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      transition: border-color 0.3s, background-color 0.3s;
     }
 
     .form-control::placeholder {
-        color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.7);
     }
 
     .form-control:focus {
-        outline: none;
-        background-color: rgba(255, 255, 255, 0.2);
-        border-color: #ffffff;
-        color: white;
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-color: #ffffff;
+      color: white;
     }
 
     .btn-entrar {
@@ -99,34 +98,30 @@
     }
 
     .link-login {
-        color: #7CDA77;
-        text-decoration: underline;
-        transition: 0.3s;
+      color: #7CDA77;
+      text-decoration: underline;
+      transition: 0.3s;
     }
 
     .link-login:hover {
-        color: #1f8d19ff;
+      color: #1f8d19ff;
     }
 
     p.text-center {
-        margin-top: 15px;
+      margin-top: 15px;
     }
 
-    /* Responsividade */
     @media (max-width: 600px) {
       .card-login {
         padding: 40px 25px;
       }
-
       .logo-container img {
         width: 50px;
       }
-
       .form-control {
         font-size: 14px;
         padding: 10px 16px;
       }
-
       .btn-entrar {
         font-size: 14px;
         padding: 12px 0;
@@ -144,17 +139,27 @@
 
       <h2>Login do Paciente</h2>
 
-      <form method="POST" action="{{ url('/login/paciente') }}">
+      @if ($errors->any())
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
+      <form method="POST" action="{{ route('paciente.login.submit') }}">
         @csrf
-        <input type="text" name="cpf" class="form-control" placeholder="CPF" required />
-        <input type="password" name="senha" class="form-control" placeholder="Senha" required />
+        <input type="text" name="cpf" class="form-control" placeholder="CPF" value="{{ old('cpf') }}" required />
+        <input type="password" name="password" class="form-control" placeholder="Senha" required />
 
         <button type="submit" class="btn btn-entrar">Entrar</button>
       </form>
 
-        <p class="text-center">
-            Ainda não tem cadastro? <a href="{{ url('/register/paciente') }}" class="link-login">Cadastre-se</a>
-        </p>
+      <p class="text-center">
+        Ainda não tem cadastro? <a href="{{ route('paciente.register') }}" class="link-login">Cadastre-se</a>
+      </p>
     </div>
   </div>
 </body>

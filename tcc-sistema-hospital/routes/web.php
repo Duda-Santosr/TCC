@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth; // <--- Adicione esta linha
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\PacienteRegisterController;
 use App\Http\Controllers\Auth\FuncionarioLoginController;
 use App\Http\Controllers\PreTriagemController;
-
 
 // ===============================
 // Página inicial
@@ -32,7 +32,8 @@ Route::post('/register/paciente', [PacienteRegisterController::class, 'register'
 
 Route::middleware('auth:paciente')->group(function () {
     Route::get('/dashboard-paciente', function () {
-        return view('dashboard_paciente');
+        $paciente = Auth::guard('paciente')->user(); // pega o paciente logado
+        return view('dashboard_paciente', compact('paciente'));
     })->name('dashboard.paciente');
 
     Route::post('/logout/paciente', [AuthController::class, 'logout'])->name('paciente.logout');

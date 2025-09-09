@@ -15,6 +15,9 @@ class Paciente extends Authenticatable
         'name',
         'cpf',
         'email',
+        'telefone',
+        'idade',
+        'genero',
         'password',
     ];
 
@@ -22,4 +25,9 @@ class Paciente extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
 }

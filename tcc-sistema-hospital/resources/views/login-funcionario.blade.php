@@ -48,7 +48,7 @@
         }
 
         .logo-container img {
-            width: 90px;
+            width: 80px;
             height: auto;
         }
 
@@ -96,6 +96,19 @@
 
         .btn-entrar:hover {
             background-color: #24175d;
+        }
+
+        .btn-voltar {
+            background-color: #45C4B0;
+            transition: 0.3s;
+            font-size: 14px;
+            width: 75px;
+            align-items: center;
+            display: flex;
+        }
+
+        .btn-voltar:hover {
+            background-color: #34A1A3;
         }
 
         /* Mensagem de erro */
@@ -152,6 +165,11 @@
                 <input type="password" name="password" placeholder="Senha" required class="form-control" />
                 <button type="submit" class="btn btn-entrar">Entrar</button>
             </form>
+
+            <!-- Botão de Voltar centralizado -->
+            <div class="d-flex justify-content-center mt-3">
+                <button type="button" class="btn btn-secondary btn-voltar" onclick="history.back()">Voltar</button>
+            </div>
         </div>
     </div>
 </body>
